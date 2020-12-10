@@ -1,0 +1,24 @@
+.search-form-band {
+  text-align: center;
+  background-color: #a1a1a1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.search-form {
+}
+
+.search-form-label {
+  padding-right: 5px;
+}
+
+.search-form-input {
+  margin-right: 5px;
+}
+
+.button-item {
+  display: inline-block;
+}
+
+.btn {
+}

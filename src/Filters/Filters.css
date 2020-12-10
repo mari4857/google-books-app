@@ -1,0 +1,41 @@
+.filters-band {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #d9d9d9;
+}
+
+.filters-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.filter-form-row {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.filter-form-row:last-child {
+  margin-right: 0px;
+}
+
+.filters-form-label {
+  padding-right: 5px;
+}
+
+.filters-form-select {
+}
+
+@media (max-width: 568px) {
+  .filter-form-row {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .filter-form-row:last-child {
+    margin-bottom: 0px;
+  }
+}
