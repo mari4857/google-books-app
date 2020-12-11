@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import './BookList.css';
 import BookListItem from "../BookListItem/BookListItem";
-import testImage from './test-gray.jpg';
 
 class BookList extends Component {
   render() {
-    // const bookListItems = <div><li>book list item 1</li><li>book list item 2</li></div>;
+    //mapping the nested array
+    const books = this
+          .props
+          .books
+          .map(nested => nested.map((book, i) => <BookListItem {...book} key={i} title={book.volumeInfo.title ? book.volumeInfo.title : '~No Title Provided~'} author={book.volumeInfo.authors ? book.volumeInfo.authors : '~No Author Provided~'} price={book.saleInfo.saleability === 'FOR_SALE' ? book.saleInfo.retailPrice.amount + ' ' + book.saleInfo.retailPrice.currencyCode : 'Not for sale'} description={book.volumeInfo.description ? book.volumeInfo.description : ''} image={book.volumeInfo.imageLinks?.thumbnail ? book.volumeInfo.imageLinks.thumbnail : ''} details={book.volumeInfo.infoLink ? book.volumeInfo.infoLink : ''}/>));
+
     return(
       <div className="book-list-row container">
         <ul className="book-list">
-          <BookListItem title="Henry I" author="C. Warren Hollister" price="$50.00" description="The resulting volume is one that will be welcomed by students and general readers alike." image={testImage} details="more details description blah" />
-          <BookListItem title="Henry I" author="C. Warren Hollister" price="$50.00" description="The resulting volume is one that will be welcomed by students and general readers alike." image={testImage} details="more details description blah" />
+          { books }
         </ul>
       </div>
     );
   }
 }
+
+BookList.defaultProps = {
+  books: []
+};
 
 export default BookList;

@@ -12,6 +12,12 @@ class App extends Component {
     };
   }
 
+  showBookResults(books) {
+    this.setState({
+      books: [books]
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -19,9 +25,9 @@ class App extends Component {
           <h1 className="app-header-title">Google Book Search</h1>
         </header>
         <main>
-          <SearchForm />
+          <SearchForm showBooks={books => this.showBookResults(books)}/>
           <Filters />
-          <BookList />
+          <BookList books={this.state.books}/>
         </main>
       </div>
     );
