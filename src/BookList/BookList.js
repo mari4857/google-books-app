@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import './BookList.css';
 import BookListItem from "../BookListItem/BookListItem";
-import testImage from './test-gray.jpg';
 
 class BookList extends Component {
   render() {
-    // const bookListItems = <div><li>book list item 1</li><li>book list item 2</li></div>;
+    //mapping the nested array
+    const { books } = this.props;
+    let bookList;
+
+    if (typeof books[0] === 'undefined' && books.length >= 1) {
+      bookList = <li className="book-list-item">No entries found, please try another search.</li>;
+    } else {
+      bookList = books
+                .map(nested => nested.map((book, i) => <BookListItem
+                  book={ book }
+                  key={ i } />));
+    }
+
     return(
       <div className="book-list-row container">
         <ul className="book-list">
-          <BookListItem title="Henry I" author="C. Warren Hollister" price="$50.00" description="The resulting volume is one that will be welcomed by students and general readers alike." image={testImage} details="more details description blah" />
-          <BookListItem title="Henry I" author="C. Warren Hollister" price="$50.00" description="The resulting volume is one that will be welcomed by students and general readers alike." image={testImage} details="more details description blah" />
+          { bookList }
         </ul>
       </div>
     );
   }
 }
+
+BookList.defaultProps = {
+  books: []
+};
 
 export default BookList;

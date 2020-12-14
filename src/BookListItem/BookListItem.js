@@ -1,42 +1,70 @@
 import React, { Component } from 'react';
 import './BookListItem.css';
 
-class BookListItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showMoreDetails: false
-    };
+export default function BookListItem(props) {
+  const { book } = props;
+
+  let author;
+  let title;
+  let thumbnailUrl;
+  let previewUrl;
+  let description;
+  let cost;
+
+  //handling abnormal responses
+  if ( book.volumeInfo ) {
+    author = book.volumeInfo.authors !== undefined
+      ? book.volumeInfo.authors[0]
+      : 'No authors listed'
+    title = book.volumeInfo.title !== undefined
+      ? book.volumeInfo.title
+      : 'No title listed';
+    thumbnailUrl = book.volumeInfo.imageLinks?.thumbnail !== undefined
+      ? book.volumeInfo.imageLinks.thumbnail
+      : 'https://via.placeholder.com/300';
+    previewUrl = book.volumeInfo.previewLink !== undefined
+      ? book.volumeInfo.previewLink
+      : 'https://books.google.com/';
+    description = book.volumeInfo.description !== undefined
+      ? book.volumeInfo.description
+      : 'No description listed';
+  } else {
+    author = null;
+    title = null;
+    thumbnailUrl = null;
+    previewUrl = null;
+    description = null;
   }
 
-  setShowMoreDetails(show) {
-    this.setState({
-      showMoreDetails: show
-    });
+  if ( book.saleInfo ) {
+    if(book.saleInfo.saleability === 'FOR_SALE') {
+      cost = '$' + book.saleInfo.listPrice.amount;
+    } else if(book.saleInfo.saleability === 'NOT_FOR_SALE') {
+      cost = 'Not For Sale';
+    } else if(book.saleInfo.saleability === 'FOR_SALE_AND_RENTAL') {
+      cost = '$' + book.saleInfo.listPrice.amount;
+    } else if(book.saleInfo.saleability === 'FREE') {
+      cost = '$0'
+    }
+  } else {
+    cost = null;
   }
 
-  render() {
-    const moreDetails = this.state.showMoreDetails
-      ? <p>{this.props.details}</p>
-      : '';
-    return(
+  return(
+    <a href={ previewUrl } target="blank" className="book-list-anchor">
       <li className="book-list-item">
-        <h3 className="book-list-item-title">{this.props.title}</h3>
+        <h3 className="book-list-item-title">{ title }</h3>
         <div className="book-list-item-row">
           <div className="book-list-item-content">
-            <p>Author: {this.props.author}</p>
-            <p>Price: {this.props.price}</p>
-            <p>{this.props.description}</p>
-            <a href="#" onClick={e => this.setShowMoreDetails(true)}>Show more details</a>
-            { moreDetails }
+            <p><strong>Author:</strong> { author }</p>
+            <p><strong>Price:</strong> { cost }</p>
+            <p>{ description }</p>
           </div>
           <div className="book-list-item-image">
-            <img src={this.props.image} alt="" className="book-list-item-image-src"/>
+            <img src={ thumbnailUrl } alt={`The cover of the book titled ${title}`} className="book-list-item-image-src"/>
           </div>
         </div>
       </li>
-    );
-  }
+    </a>
+  );
 }
-
-export default BookListItem;

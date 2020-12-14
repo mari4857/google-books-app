@@ -1,3 +1,9 @@
+.book-list-anchor {
+  border-bottom: none;
+  color: #000;
+  text-decoration: none;
+}
+
 .book-list-item {
   padding: 30px 0;
   border-bottom: 1px solid #d9d9d9;
@@ -11,6 +17,7 @@
   text-align: center;
   font-size: 28px;
   margin-top: 0px;
+  text-decoration: underline;
 }
 
 .book-list-item-row {
@@ -30,6 +37,10 @@
   text-align: center;
 }
 
+.book-list-item-content p {
+  margin-top: 0px;
+}
+
 .book-list-item-image {
   max-width: 200px;
   width: 100%;
@@ -42,17 +53,13 @@
   width: 100%;
 }
 
-.book-list-item-more-details {
-  /*display: none;*/
-}
-
 @media (max-width: 768px) {
   .book-list-item-row {
     flex-wrap: wrap;
   }
 
   .book-list-item-image {
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     padding-right: 0px;
   }
 }
