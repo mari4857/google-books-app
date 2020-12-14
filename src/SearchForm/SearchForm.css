@@ -24,6 +24,7 @@
 }
 
 .searchFormError {
+  text-align: center;
   color: #C20000;
   padding-top: 5px;
 }
